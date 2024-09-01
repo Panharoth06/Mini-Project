@@ -1,12 +1,13 @@
 #include <iostream>
 #include "logIn.h"
 #include "register.h"
+#include "accountSetting.h"
 
 using namespace std;
 
-void menu() {
+void list() {
     cout << "======================================================================" << endl;
-    cout << "                                Menu                                  " << endl;
+    cout << "                                List                                  " << endl;
     cout << "======================================================================" << endl;
     cout << "                       1. Login Account                               " << endl;
     cout << "                       2. Register Account                            " << endl;
@@ -16,12 +17,24 @@ void menu() {
     cout << "======================================================================" << endl;
 }
 
+void accountSettingList() {
+    cout << "======================================================================" << endl;
+    cout << "                      Account Settings List                           " << endl;
+    cout << "======================================================================" << endl;
+    cout << "                       1. Change Email                                " << endl;
+    cout << "                       2. Change Password                             " << endl;
+    cout << "                       3. Change Username                             " << endl;
+    cout << "                       4. Delete Account                              " << endl;
+    cout << "                       0. Exit                                        " << endl;
+    cout << "======================================================================" << endl;
+}
+
 int main() {
     system("cls");
 
-    int op;
+    short op;
     do {
-        menu();
+        list();
         cout << "[+] Insert your option : "; cin >> op;
         switch(op) {
             case 1 : { // login
@@ -29,8 +42,8 @@ int main() {
                 cout << "======================================================================" << endl;
                 cout << "                            Login Account                             " << endl;
                 cout << "======================================================================" << endl;
-                Login user2;
-                user2.loginUser();
+                Login user1;
+                user1.loginUser();
                 cout << "======================================================================" << endl;
                 break;
             }
@@ -39,13 +52,55 @@ int main() {
                 cout << "======================================================================" << endl;
                 cout << "                          Register Account                            " << endl;
                 cout << "======================================================================" << endl;
-                Register user1;
-                user1.setUserRegister();
+                Register user2;
+                user2.setUserRegister();
                 cout << "======================================================================" << endl;
                 break;
             }
-            default : {
+            case 3 : {
+                cout << "======================================================================" << endl;
+                cout << "                           Account Setting                            " << endl;
+                cout << "======================================================================" << endl;
+                accountSettingList();
+                cout << "======================================================================" << endl;
+                AccountSettingImpl user3;
+                short op2;
+                do {
+                cout << "[+] Insert your option : "; cin >> op2;
+                    switch (op2) {
+                        case 1 : {
+                            user3.changeEmail();
+                            break;
+                        }
+                        case 2 : {
+                            user3.changePassword();
+                            break;
+                        }
+                        case 3 : {
+                            user3.changeUsername();
+                            break;
+                        }
+                        case 4 : {
+                            user3.deleteAccount();
+                            break;
+                        }
+                        case 0 : {
+                            cout << "Exiting..." << endl;
+                            break;
+                        }
+                        default : {
+                            cout << "INVALID OPTION!" << endl;
+                            break;
+                        }
+                    }
+                } while(op2);
+            }   
+            case 0 : {
                 cout << "Exiting..." << endl;
+                break;
+            }
+            default : {
+                cout << "INVALID OPTION!" << endl;
             }
         }
     } while(op);

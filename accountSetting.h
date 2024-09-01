@@ -14,29 +14,100 @@ class AccountSetting{
         virtual void deleteAccount() = 0;
 };
 
-class ChangeEmail : public AccountSetting{
+class AccountSettingImpl : public AccountSetting{
     private :
         string email, password;
     
     public :
         void changeEmail() override{
-            cout << "Enter your old email : ";
+            cout << "Enter your password : ";
+            cin.ignore();
+            getline(cin, this->password);
+
+            bool isChanged = 0;
+            for (int i = 0; i < emails.size(); i++) {
+                if (this->password == passwords[i]) {
+                    cout << "Enter your new email : ";
+                    cin >> emails[i];
+                    isChanged = 1;
+                    cout << "Email changed succesfully." << endl;
+                    break;
+                }
+            }
+            if (!isChanged) cout << "Incorrect password." << endl;
+        }
+
+        void changeUsername() override{
+            cout << "Enter your password : ";
+            cin.ignore();
+            getline(cin, this->password);
+
+            bool isChanged = 0;
+            for (int i = 0; i < usernames.size(); i++) {
+                if (this->password == passwords[i]) {
+                    cout << "Enter your new password : ";
+                    getline(cin, passwords[i]);
+                    isChanged = 1;
+                    cout << "Password changed successfully." << endl;
+                    break;
+                }
+            }
+            if (!isChanged) cout << "Incorrect password." << endl;
+        }
+
+        void changePassword() override{
+            cout << "Enter your old password : ";
+            cin.ignore();
+            getline(cin, this->password);
+
+            for (int i = 0; i < passwords.size(); i++) {
+                if (this->password == passwords[i]) {
+                    cout << "Enter your new password : ";
+                    getline(cin, passwords[i]);
+
+                    string verPassword = passwords[i];
+                    do {
+                        cout << "Enter your new password again : ";
+                        getline(cin, this->password);
+                        if (this->password == verPassword) {
+                            cout << "Password changed successfully." << endl;
+                            break;
+                        }
+                        else cout << "Password incorrect." << endl;
+                    } while (this->password == verPassword);
+                }
+            }
+        }
+
+        void deleteAccount() override{
+            cout << "Enter your email : ";
             cin >> this->email;
             cout << "Enter your password : ";
             cin.ignore();
             getline(cin, this->password);
 
-            bool isChange = 0;
+            bool isDelete = 0;
+            char choice;
             for (int i = 0; i < emails.size(); i++) {
-                if (this->email == emails[i] && this->password == passwords[i]) {
-                    cout << "Enter your new email : ";
-                    cin >> emails[i];
-                    isChange = 1;
-                    cout << "Email changed succesfully." << endl;
-                    break;
+                if (this->email == emails[i]) {
+                    cout << "Are you sure that you want to delete this account? (Y/N) : ";
+                    cin >> choice;
+                    if (choice == 'Y' || choice == 'y') {
+                        for (int j = i; j < emails.size()-1; j++) {
+                            emails[i] = emails[i+1];
+                            usernames[i] = usernames[i+1];
+                            passwords[i] = passwords[i+1];
+                        }
+                        emails.pop_back();
+                        usernames.pop_back();
+                        passwords.pop_back();
+                        isDelete = 1;
+                        break;
+                    }
+                    else break;
                 }
             }
-            if (!isChange) cout << "Incorrect email or password." << endl;
+            if(!isDelete) cout << "Incorrect email or password." << endl;
         }
 };
 
