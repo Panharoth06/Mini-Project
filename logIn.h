@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "register.h"
+
 using namespace std;
 
 class Login{
@@ -25,7 +26,7 @@ class Login{
                     break;
                 }
             }
-            if (!isFound) cout << "Login unsuccesfully..." << endl;
+            if (!isFound) cout << "Incorrect email or password." << endl;
         };
 
 };

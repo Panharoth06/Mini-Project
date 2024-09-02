@@ -2,6 +2,7 @@
 #include "logIn.h"
 #include "register.h"
 #include "accountSetting.h"
+//#include "forgotPassword.h"
 
 using namespace std;
 
@@ -12,14 +13,13 @@ void list() {
     cout << "                       1. Login Account                               " << endl;
     cout << "                       2. Register Account                            " << endl;
     cout << "                       3. Account setting                             " << endl;
-    cout << "                       4. Forgot password                             " << endl;
     cout << "                       0. Exit                                        " << endl;
     cout << "======================================================================" << endl;
 }
 
 void accountSettingList() {
     cout << "======================================================================" << endl;
-    cout << "                      Account Settings List                           " << endl;
+    cout << "                        Account Settings List                         " << endl;
     cout << "======================================================================" << endl;
     cout << "                       1. Change Email                                " << endl;
     cout << "                       2. Change Password                             " << endl;
@@ -58,9 +58,9 @@ int main() {
                 break;
             }
             case 3 : {
+                system("cls");
                 cout << "======================================================================" << endl;
-                cout << "                           Account Setting                            " << endl;
-                cout << "======================================================================" << endl;
+                cout << "                           Account Setting                            "<< endl << endl;
                 accountSettingList();
                 cout << "======================================================================" << endl;
                 AccountSettingImpl user3;
@@ -94,7 +94,8 @@ int main() {
                         }
                     }
                 } while(op2);
-            }   
+                break;
+            }
             case 0 : {
                 cout << "Exiting..." << endl;
                 break;

@@ -4,6 +4,7 @@
 // delete account
 #include <iostream>
 #include "register.h"
+
 using namespace std;
 
 class AccountSetting{
@@ -67,7 +68,7 @@ class AccountSettingImpl : public AccountSetting{
 
                     string verPassword = passwords[i];
                     do {
-                        cout << "Enter your new password again : ";
+                        cout << "Enter your new password again to confirm : ";
                         getline(cin, this->password);
                         if (this->password == verPassword) {
                             cout << "Password changed successfully." << endl;
@@ -93,14 +94,10 @@ class AccountSettingImpl : public AccountSetting{
                     cout << "Are you sure that you want to delete this account? (Y/N) : ";
                     cin >> choice;
                     if (choice == 'Y' || choice == 'y') {
-                        for (int j = i; j < emails.size()-1; j++) {
-                            emails[i] = emails[i+1];
-                            usernames[i] = usernames[i+1];
-                            passwords[i] = passwords[i+1];
-                        }
-                        emails.pop_back();
-                        usernames.pop_back();
-                        passwords.pop_back();
+                        emails.erase(emails.begin() + i);
+                        usernames.erase(usernames.begin() + i);
+                        passwords.erase(passwords.begin() + i);
+                        cout << "Your account is deleted." << endl;
                         isDelete = 1;
                         break;
                     }
